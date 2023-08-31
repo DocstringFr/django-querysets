@@ -6,7 +6,7 @@ import zoneinfo
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_querysets.settings')
 django.setup()
 
-from blog.models import Author, Article, Comment
+from blog.models import Author, Article, Comment, Formation, Tag
 
 
 def cleanup_and_create_data():
@@ -14,6 +14,7 @@ def cleanup_and_create_data():
     Author.objects.all().delete()
     Article.objects.all().delete()
     Comment.objects.all().delete()
+    Tag.objects.all().delete()
 
     # Création des auteurs
     author1 = Author.objects.create(name='John Doe', email='john.doe@example.com')
@@ -44,9 +45,16 @@ def cleanup_and_create_data():
 
     article4 = Article.objects.create(
         title='Queryset avancés avec Django',
-        content='Lorem ipsum dolor sit amet...',
+        content='On va voir comment utiliser des fonctionnalités avancées de Django sur les queryset.',
         published_date=datetime.now(zoneinfo.ZoneInfo("Europe/Paris")) - timedelta(days=800),
         author=author3
+    )
+
+    article5 = Article.objects.create(
+        title='Les types natifs',
+        content='Formation sur les types natifs en Python',
+        published_date=datetime.now(zoneinfo.ZoneInfo("Europe/Paris")) - timedelta(days=500),
+        author=author1
     )
 
     # Création des commentaires
@@ -58,7 +66,7 @@ def cleanup_and_create_data():
 
     comment2 = Comment.objects.create(
         article=article1,
-        content='Merci pour ces informations !',
+        content='Super, merci pour ces informations !',
         posted_at=datetime.now() - timedelta(hours=2)
     )
 
@@ -68,4 +76,31 @@ def cleanup_and_create_data():
         posted_at=datetime.now() - timedelta(hours=5)
     )
 
-    print("Données de test créées avec succès.")
+    tag1 = Tag.objects.create(name='Django')
+    tag2 = Tag.objects.create(name='Queryset')
+    tag3 = Tag.objects.create(name='Python')
+
+    article1.tag_set.add(tag1, tag3)
+    article2.tag_set.add(tag1, tag2)
+    article3.tag_set.add(tag1, tag2, tag3)
+    article4.tag_set.add(tag2, tag3)
+
+    Formation.objects.create(
+        name='Formation Django',
+        price=50,
+    )
+
+    Formation.objects.create(
+        name='Formation Python',
+        price=25,
+    )
+
+    Formation.objects.create(
+        name='Formation Django avancé',
+        price=100,
+    )
+
+    Formation.objects.create(
+        name='Formation Python avancé',
+        price=75,
+    )

@@ -29,3 +29,18 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    articles = models.ManyToManyField(Article)
+
+    def __str__(self):
+        return self.name
+
+
+class Formation(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.IntegerField(default=0)
+
+
