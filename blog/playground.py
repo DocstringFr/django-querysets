@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import timedelta
 from pprint import pprint
 
@@ -52,8 +53,6 @@ def update_multiple_objects_at_once():
     #     article.title = 'Article périmé'
     #     article.save()
 
-    # Mise à jour de plusieurs objets en même temps
-    # On met à jour tous les articles qui ont été publiés il y a plus de 30 jours
     Article.objects.filter(published_date__lte=timezone.now() - timedelta(days=30)).update(title='Article périmé')
 
     pprint(connection.queries)
@@ -74,4 +73,6 @@ def update_using_f_objects():
     for formation in Formation.objects.all():
         print(formation.price)
 
-update_using_f_objects()
+a = time.time()
+update_multiple_objects_at_once()
+print(time.time() - a)

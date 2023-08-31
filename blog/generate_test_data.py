@@ -58,6 +58,15 @@ def cleanup_and_create_data():
         author=author1
     )
 
+    # Création de 1000 articles factices
+    for i in range(1000):
+        Article.objects.create(
+            title=f'Article {i}',
+            content='Lorem ipsum dolor sit amet...',
+            published_date=datetime.now(zoneinfo.ZoneInfo("Europe/Paris")) - timedelta(days=i),
+            author=author1
+        )
+
     # Création des commentaires
     comment1 = Comment.objects.create(
         article=article1,
