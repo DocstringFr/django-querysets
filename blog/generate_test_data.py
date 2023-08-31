@@ -15,6 +15,7 @@ def cleanup_and_create_data():
     Article.objects.all().delete()
     Comment.objects.all().delete()
     Tag.objects.all().delete()
+    Formation.objects.all().delete()
 
     # Création des auteurs
     author1 = Author.objects.create(name='John Doe', email='john.doe@example.com')
