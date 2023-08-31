@@ -23,3 +23,12 @@ try:
 except Article.DoesNotExist:
     print("L'article n'existe pas !")
 
+# Trier les résultat par date de publication
+all_articles = Article.objects.all()
+all_django_articles_by_publish_date = all_articles.filter(title__icontains='django').order_by('published_date')
+
+for article in all_django_articles_by_publish_date:
+    print(article, article.published_date.strftime('%d/%m/%Y'))
+
+
+

@@ -38,6 +38,13 @@ def cleanup_and_create_data():
     article3 = Article.objects.create(
         title='Optimisation avec Django',
         content='Lorem ipsum dolor sit amet...',
+        published_date=datetime.now(zoneinfo.ZoneInfo("Europe/Paris")) - timedelta(days=60),
+        author=author3
+    )
+
+    article4 = Article.objects.create(
+        title='Queryset avancés avec Django',
+        content='Lorem ipsum dolor sit amet...',
         published_date=datetime.now(zoneinfo.ZoneInfo("Europe/Paris")) - timedelta(days=800),
         author=author3
     )
